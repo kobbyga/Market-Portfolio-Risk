@@ -17,4 +17,6 @@ BACKTEST_END = "2023-12-29"
 #lambda
 lam = 0.94
 
+alpha = 0.01
+
 
