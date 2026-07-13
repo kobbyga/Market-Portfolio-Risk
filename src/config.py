@@ -19,4 +19,6 @@ lam = 0.94
 
 alpha = 0.01
 
+backtest_sig = 0.05
+
 
