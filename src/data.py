@@ -11,7 +11,7 @@ def load_prices(path):
   Returns:
       returns: DataFrame containing log returns for all tickers
   """
-  df = pd.read_csv(path, parse_date=["Dates"]).set_index("Dates").sort_index()
+  df = pd.read_csv(path, parse_dates=["Dates"]).set_index("Dates").sort_index()
 
   returns = np.log(df / df.shift(1)).dropna(how = "any")
 
