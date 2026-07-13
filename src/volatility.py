@@ -71,7 +71,7 @@ def fit_garch(returns):
  
     return {"omega": omega, "alpha": alpha, "beta": beta, "mu": mu}, cond_vol
 
-def forecast_garch_vol(returns, params, cond_vol, horizon_index)
+def forecast_garch_vol(returns, params, cond_vol, horizon_index):
     """
     One-step-ahead GARCH(1,1) forecast over a horizon, using realised returns
     as they arrive (standard daily VaR setup).
