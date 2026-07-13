@@ -12,14 +12,14 @@ from config import (
 
 def load_prices(path):
     """
-    Load price data from CSV, convert all assets to GBP, and compute daily log returns.
-    
+    Load raw price data, convert all assets to GBP, and compute daily log returns.
+
     Args:
-        path: Path to CSV file containing columns:
+        path: Path to a CSV file containing columns:
               Dates, NKE, C, SPX, USDGBP, CBK, VOW, DAX, GBPEUR.
 
     Returns:
-        returns: DataFrame of daily log returns for GBP-denominated assets.
+        returns: DataFrame of daily log returns for all GBP-denominated assets.
     """
     
   df = pd.read_csv(path, parse_dates=["Dates"]).set_index("Dates").sort_index()
