@@ -1,21 +1,27 @@
 import pandas as pd
 import numpy as np
 
-from config.py import (
-    FX
+from config import (
+    FX,
+    IN_SAMPLE_START,
+    IN_SAMPLE_END,
+    BACKTEST_START,
+    BACKTEST_END
 )
 
 
 def load_prices(path):
-  """
-  Loads DataFrame of csv file containing data, and computes log returns for all tickers
+    """
+    Load price data from CSV, convert all assets to GBP, and compute daily log returns.
+    
+    Args:
+        path: Path to CSV file containing columns:
+              Dates, NKE, C, SPX, USDGBP, CBK, VOW, DAX, GBPEUR.
 
-  Args:
-      path: csv file containing close prices for all tickers
-
-  Returns:
-      returns: DataFrame containing log returns for all tickers
-  """
+    Returns:
+        returns: DataFrame of daily log returns for GBP-denominated assets.
+    """
+    
   df = pd.read_csv(path, parse_dates=["Dates"]).set_index("Dates").sort_index()
 
   # USD-denominated assets converted to GBP
@@ -34,3 +40,20 @@ def load_prices(path):
   returns = np.log(df / df.shift(1)).dropna(how="any")
   
   return returns
+
+def split_sample(returns):
+    """
+    Split the returns DataFrame into in-sample and backtest periods.
+
+    Args:
+        returns: DataFrame of daily log returns for GBP-denominated assets.
+
+    Returns:
+        in_sample: DataFrame containing returns between IN_SAMPLE_START and IN_SAMPLE_END.
+        backtest: DataFrame containing returns between BACKTEST_START and BACKTEST_END.
+    """
+    
+    in_sample = returns.loc[IN_SAMPLE_START:IN_SAMPLE_END]
+    backtest = returns.loc[BACKTEST_START:BACKTEST_END] 
+    
+    return in_sample, backtest
