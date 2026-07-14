@@ -1,6 +1,6 @@
 # Market-Portfolio-Risk
 
-A market risk project comparing three volatility-adaptive VaR models across three correlation regimes for a four-asset GBP-denominated equity portfolio (Nike, Citigroup, Commerzbank, Volkswagen), with full Kupiec backtesting over 2020–2023. Includes a CAPM two-factor model validated against GARCH(1,1)-estimated index volatility.
+A market risk project comparing three volatility-adaptive VaR models across three correlation regimes for a four-asset GBP-denominated equity portfolio (Nike, Citigroup, Commerzbank, Volkswagen), with full Kupiec backtesting conducted yearly over 2020–2023. Includes a CAPM two-factor model validated against GARCH(1,1)-estimated index volatility.
 
 ## Features
 
