@@ -27,7 +27,7 @@ class KupiecResult:
     p_value: float
     passed: bool
 
-from config import (
+from src.config import (
     alpha,
     backtest_sig
 )
