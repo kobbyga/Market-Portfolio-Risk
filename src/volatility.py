@@ -2,12 +2,12 @@ import numpy as np
 import pandas as pd
 from arch import arch_model
 
-from config import (
+from src.config import (
     lam
 )
  
 def ewma_volatility(returns, lam, seed_variance = None):
-  """
+    """
     Compute RiskMetrics EWMA volatility for all assets in a returns DataFrame
 
     sigma_t^2 = lam * sigma_{t-1}^2 + (1 - lam) * r_{t-1}^2
@@ -21,29 +21,32 @@ def ewma_volatility(returns, lam, seed_variance = None):
     Returns:
         ewma_vol: DataFrame of daily EWMA volatilities for each asset
   """
-  r = returns.values                     
-  T, N = r.shape
+    if isinstance(returns, pd.Series):
+        returns = returns.to_frame()
+    
+    r = returns.values
+    T, N = r.shape
 
-  # Seed variance per asset
-  if seed_variance is None:
-    seed_variance = returns.var()
+    # Seed variance per asset
+    if seed_variance is None:
+        seed_variance = returns.var()
 
-  # Allocate variance matrix
-  var = np.empty((T, N))
-  var[0, :] = seed_variance.values
+    # Allocate variance matrix
+    var = np.empty((T, N))
+    var[0, :] = np.asarray(seed_variance)
 
-  # Vectorised EWMA recursion
-  for t in range(1, T):
-    var[t, :] = lam * var[t - 1, :] + (1 - lam) * (r[t - 1, :] ** 2)
+    # Vectorised EWMA recursion
+    for t in range(1, T):
+        var[t, :] = lam * var[t - 1, :] + (1 - lam) * (r[t - 1, :] ** 2)
 
-  # Convert to volatility DataFrame
-  ewma_vol = pd.DataFrame(
-    np.sqrt(var),
-    index=returns.index,
-    columns=returns.columns
+    # Convert to volatility DataFrame
+    ewma_vol = pd.DataFrame(
+       np.sqrt(var),
+       index=returns.index,
+       columns=returns.columns
     )
 
-  return ewma_vol
+    return ewma_vol
 
 def fit_garch(returns):
     """
