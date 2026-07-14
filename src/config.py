@@ -1,5 +1,7 @@
+import pandas as pd
+
 ASSETS = ["NKE", "C", "CBK", "VOW"]
-INDICES = ["SP500", "DAX"]
+INDICES = ["SPX", "DAX"]
 FX = ["USDGBP", "GBPEUR"]
 ALL_INSTRUMENTS = ASSETS + FX + INDICES
 
@@ -9,10 +11,10 @@ PORTFOLIO_VALUE = 1_000_000  # GBP
 SCENARIOS = ["zero", "historical", "stress"]
 STRESS_RHO = 0.95
  
-IN_SAMPLE_START = "2010-01-04"
-IN_SAMPLE_END = "2019-12-31"
-BACKTEST_START = "2020-01-01"
-BACKTEST_END = "2023-12-29"
+IN_SAMPLE_START = pd.Timestamp("2010-01-04")
+IN_SAMPLE_END = pd.Timestamp("2019-12-31")
+BACKTEST_START = pd.Timestamp("2020-01-01")
+BACKTEST_END = pd.Timestamp("2023-12-29")
 
 #lambda
 lam = 0.94
