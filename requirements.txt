@@ -3,3 +3,6 @@ dataclass
 numpy
 pandas
 scipy
+dataclass
+matplotlib
+seaborn
