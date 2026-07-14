@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-from config import (
+from src.config import (
     FX,
     IN_SAMPLE_START,
     IN_SAMPLE_END,
@@ -21,25 +21,29 @@ def load_prices(path):
     Returns:
         returns: DataFrame of daily log returns for all GBP-denominated assets.
     """
+    df = pd.read_csv(path, parse_dates = ["Dates"], dayfirst = True).set_index("Dates").sort_index()
+
+    df = df.loc[:, ~df.columns.str.contains("^Unnamed")]
+    df.columns = df.columns.str.strip()
     
-  df = pd.read_csv(path, parse_dates=["Dates"]).set_index("Dates").sort_index()
-
-  # USD-denominated assets converted to GBP
-  usd_assets = ["NKE", "C", "SPX"]
-  for col in usd_assets:
-    df[col] = df[col] * df["USDGBP"]
-
-  # EUR-denominated assets converted to GBP
-  eur_assets = ["CBK", "VOW", "DAX"]
-  for col in eur_assets:
-    df[col] = df[col] * ( 1/ df["GBPEUR"])
-
-  df = df.drop(columns = FX)
-
-  # Compute log returns for assets 
-  returns = np.log(df / df.shift(1)).dropna(how="any")
-  
-  return returns
+    # USD-denominated assets converted to GBP
+    usd_assets = ["NKE", "C", "SPX"]
+    for col in usd_assets:
+        df[col] = df[col] * df["USDGBP"]
+    
+    # EUR-denominated assets converted to GBP
+    eur_assets = ["CBK", "VOW", "DAX"]
+    for col in eur_assets:
+        df[col] = df[col] * ( 1/ df["GBPEUR"])
+    
+    df = df.drop(columns = FX)
+    
+    prices = np.log(df)
+    
+    # Compute log returns for assets 
+    returns = np.log(df / df.shift(1)).dropna(how="any")
+    
+    return prices, returns
 
 def split_sample(returns):
     """
