@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from config import (
+from src.config import (
     WEIGHTS,
     PORTFOLIO_VALUE,
     SCENARIOS,
@@ -9,7 +9,7 @@ from config import (
 )
 
 def correlation_matrix(scenario, historical_returns):
-   """
+    """
     Build a correlation matrix for a given scenario
 
     Args:
@@ -38,7 +38,7 @@ def correlation_matrix(scenario, historical_returns):
         raise ValueError(f"Unknown scenario: {scenario}")
 
 def portfolio_volatility_assets(vols_today, corr, weights = WEIGHTS):
- """
+    """
     Compute portfolio volatility using asset-level volatilities and correlations
 
     Implements:
@@ -82,7 +82,7 @@ def estimate_capm_betas(portfolio_returns, index_returns):
     y = portfolio_returns.reindex(X.index)
     beta_hat = np.linalg.lstsq(X.values, y.values, rcond=None)[0]
   
-    return {"alpha": beta_hat[0], "SP500": beta_hat[1], "DAX": beta_hat[2]}
+    return {"alpha": beta_hat[0], "SPX": beta_hat[1], "DAX": beta_hat[2]}
  
  
 def portfolio_volatility_capm(betas, index_vols_today, rho_sp_dax):
@@ -102,8 +102,8 @@ def portfolio_volatility_capm(betas, index_vols_today, rho_sp_dax):
     Returns:
         float: Portfolio volatility (daily, decimal).
     """
-    b1, b2 = betas["SP500"], betas["DAX"]
-    s1, s2 = index_vols_today["SP500"], index_vols_today["DAX"]
+    b1, b2 = betas["SPX"], betas["DAX"]
+    s1, s2 = index_vols_today["SPX"], index_vols_today["DAX"]
     var_p = (b1 ** 2) * s1 ** 2 + (b2 ** 2) * s2 ** 2 + 2 * rho_sp_dax * b1 * b2 * s1 * s2
   
     return float(np.sqrt(var_p))
