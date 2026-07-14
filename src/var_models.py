@@ -3,7 +3,7 @@ import pandas as pd
 from scipy import stats
 from scipy.optimize import minimize_scalar
 
-from config import (
+from src.config import (
     alpha
 )
 
