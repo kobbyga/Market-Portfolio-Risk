@@ -84,6 +84,21 @@ CreditMetrics-Python/
 | In-sample period | January 2010 – December 2019 |
 | Backtesting period | January 2020 – December 2023 |
 
+## Results
+Model A: EWMA Volatility + Normal VaR, Model B: CAPM + GARCH, Model C: EWMA Volatility + Student-t VaR
+
+| Model | Scenario | Total Observations | Total Breaches | Average Breach Rate | Expected Breach Rate | Kupiec Pass Rate |
+|---|---|---|---|---|---|---|                                                                                          
+| A | historical | 1043 | 21 | 2.01% | 5.00% | 2 / 4 |
+|   | stress | 1043 | 8 | 0.77% | 5.00% | 4 / 4 |
+|   | zero | 1043 | 52 | 4.98% | 5.00% | 1 / 4 |
+| B | historical | 1043 | 48 | 4.6% | 5.00% | 0 / 4 |
+|   | stress | 1043 | 36 | 3.45% | 5.00% | 0 / 4 |
+|   | zero | 1043 | 87 | 8.34% | 5.00% | 0 / 4 |
+| C | historical | 1043 | 17 | 1.63% | 5.00% | 3 / 4 |
+|   | stress | 1043 | 6 | 0.57% | 5.00% | 4 / 4 |
+|   | zero | 1043 | 49 | 4.7% | 5.00% | 1 / 4 |
+
 ## Key Charts
 
 - Backtest Distribution, where Portfolio Loss > VaR = Breach
@@ -92,3 +107,10 @@ CreditMetrics-Python/
 - Kupiec Test Pass Rate
   ![kupiec_pass_rate](figures/kupiec_pass_rate.png)
 
+
+## Potential Extensions
+
+- Historical simulation VaR as a non-parametric alternative, relaxing distributional assumptions
+- Filtered Historical Simulation (FHS) combining GARCH-standardised residuals with empirical shocks
+- GJR-GARCH / EGARCH to capture the leverage effect (negative returns raising volatility more than positive returns of equal size)
+- Skewed Student-t distribution to capture both excess kurtosis and negative skew in equity returns
