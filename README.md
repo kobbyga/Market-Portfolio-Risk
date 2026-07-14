@@ -1,6 +1,6 @@
 # Market-Portfolio-Risk
 
-A market risk project comparing three volatility-adaptive VaR models across three correlation regimes for a four-asset GBP-denominated equity portfolio (Nike, Citigroup, Commerzbank, Volkswagen), with full Kupiec backtesting conducted yearly over 2020–2023. Includes a CAPM two-factor model validated against GARCH(1,1)-estimated index volatility.
+A market risk project comparing three volatility-adaptive VaR models across three correlation regimes for a four-asset GBP-denominated equity portfolio (Nike, Citigroup, Commerzbank, Volkswagen), with full Kupiec backtesting conducted yearly over 2020–2023. Includes a CAPM two-factor model validated against GARCH(1,1) estimated index volatility.
 
 ## Features
 
@@ -18,41 +18,42 @@ To estimate and validate daily portfolio Value-at-Risk (VaR) at 99% confidence l
 ## Repository Structure
 
 ```
-CreditMetrics-Python/
+Market-Portfolio_Risk/
 │
 ├── README.md                  # Project homepage
 ├── requirements.txt
 ├── .gitignore
 │
 ├── data/
-│   ├── correlation.csv
-│   ├── thresholds.csv
-│   ├── transition_matrix.csv
-│   ├── valuation.csv
-│   └── README.md
-│
-├── notebook/
-│   └── creditmetrics_demo.ipynb
-│
-├── src/
-│   ├── __init__.py
-│   ├── config.py
-│   ├── portfolio.py
-│   ├── risk_metrics.py
-│   ├── simulation.py
-│   └── visualisation.py
-│
-├── tests/
-│   ├── __init__.py
-│   ├── test_creditmetrics.py
-│   └── test_transition.py
-│
+│   └── data.csv
+├── docs/
+│   ├── results.md
+│   └── methodology.md
 ├── figures/
-│   ├── loss_distribution.png
-│   └── migration_heatmap.png
-│
-└── docs/
-    └── assumptions.md
+│   ├── asset_correlation.png
+│   ├── asset_prices.png
+│   ├── backtest_distribution.png
+│   ├── garch_volatility.png
+│   ├── index_correlation.png
+│   ├── kupiec_pass_rate.png
+│   ├── portfolio_distribution.png
+│   ├── return_series.png
+│   ├── returns_and_ewma.png
+│   └── volatility_comparisons.png
+├── notebook/
+│   └── marketrisk_demo.ipynb
+└──  src/
+    ├── __init__.py
+    ├── backtest.py
+    ├── config.py
+    ├── data.py
+    ├── model_validation.py
+    ├── portfolio.py
+    ├── run_model.py
+    ├── var_models.py
+    ├── visualisations.py
+    ├── volatlility.py
+    └── visualisation.py
 ```
 
 ## How to run
